@@ -2,12 +2,9 @@
 require("Enum.php");
 
 /* 
-There are 2 ways to declare a new Enum: One uses the utility function enum()
-The other one is by creating a class that extends Enum and enum items are put
-as constants inside the Enum
+Declare a new Enum using the function enum()
 */
 
-/*
 enum('Month', array(
 		'January' => 1,
 		'February' => 2,
@@ -23,24 +20,6 @@ enum('Month', array(
 		'December' => 12
 	)
 );
-/*/
-class Month extends Enum {
-	const January = 1;
-	const February = 2;
-	const March = 3;
-	const April = 4;
-	const May = 5;
-	const June = 6;
-	const July = 7;
-	const August = 8;
-	const September = 9;
-	const October = 10;
-	const November = 11;
-	const December = 12;
-}
-//*/
-
-
 
 
 
