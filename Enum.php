@@ -201,23 +201,18 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
- */
-
-
-/**
+ * 
  * @author Ahmed Magdy <a.magdy@a1works.com>
- * @url https://github.com/amagdy/PHP_Enum
- * 
- * 
+ * @see https://github.com/amagdy/PHP_Enum
  * This class should be the parent class of any Enum
  */
 class Enum {
-    protected $name = NULL;        // String: The key of an Enum item
-    protected $value = NULL;    // Mixed: The value of an Enum item
+    protected $name = /*.(string).*/ NULL;        // String: The key of an Enum item
+    protected $value = /*.(mixed).*/ NULL;    // Mixed: The value of an Enum item
     
     /**
      * Returns the name (key) of an Enum item as a string
-     * @return String
+     * @return string
      */        
     public function getName(){
         return $this->name;
@@ -233,6 +228,7 @@ class Enum {
     
     /**
      * Returns a string representation of the enum item which is its name
+     * @return string
      */
     public function __toString()
     {
@@ -240,15 +236,24 @@ class Enum {
     }
 
     /**
-     * This class cannot not be instantiated using the new keyword from code outside the class 
+     * This class cannot not be instantiated using the new keyword from code outside the class
+     * @param string $name
+     * @param mixed $val [optional]
      */
     private function __construct($name, $val=NULL){
         $this->name = $name;
         $this->value = $val;
     }
     
+    /**
+     * Checks if a string is a valid variable name
+     * @param string $str
+     * @return boolean
+     */
     private static function is_valid_var_name($str){
-        return preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $str);
+        $output = preg_match('/^[a-zA-Z_][a-zA-Z0-9_]*$/', $str);
+        if ($output === false || $output === 0) return false;
+        return true;
     }
     
     
@@ -257,7 +262,7 @@ class Enum {
      */
     protected static function initialize(){
         $cls_name = get_called_class();
-        if ($cls_name::$is_initialized) return true; 
+        if ($cls_name::$is_initialized === true) return true; 
         $arr = $cls_name::$arr_params;
         foreach ($arr as $k => $v) {
             $cls_name::$enum_items[$k] = new $cls_name($k, $v);
@@ -307,6 +312,7 @@ class Enum {
     
     /**
      * Returns all the keys and values
+     * @return Array
      */
     public static function getKeys(){
         $enum_class_name = get_called_class();
